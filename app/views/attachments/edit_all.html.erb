@@ -30,7 +30,7 @@
         </div>
         <%- end %>
         <div>
-        <%= select_tag "attachments[#{attachment.id}][attachment_category_id]", options_for_select([['', '']] + attachment_categories, attachment.attachment_category_id), :onchange => "changeCategoryColor(this)" %>
+        <%= attachment_category_select "attachments[#{attachment.id}][attachment_category_id]", attachment_categories, attachment.attachment_category_id, :onchange => "changeCategoryColor(this)" %>
         </div>
         </div>
       </td>

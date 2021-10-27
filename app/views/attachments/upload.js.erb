@@ -2,12 +2,12 @@
   _all_categories = AttachmentCategory.all.collect { |p| [p.name, p.id]} 
   
   _attachment_tag  = @attachment.thumbnailable? ? thumbnail_tag( @attachment ) : attachment_category_tag( @attachment.attachment_category, :span )
-  _category_select = select_tag( 
-    "attachments[#{j params[:attachment_id]}][attachment_category_id]", 
-    options_for_select( [['', '']] + _all_categories, @attachment.attachment_category_id), 
+  _category_select = attachment_category_select(
+    "attachments[#{j params[:attachment_id]}][attachment_category_id]",
+    _all_categories, @attachment.attachment_category_id,
     :onchange => "changeCategoryColor(this, '#attachments_#{params[:attachment_id]}')"
   )
-      
+  
   _file_or_thumbnail = j content_tag( 
     :div, 
     _attachment_tag + tag(:br) + _category_select,
