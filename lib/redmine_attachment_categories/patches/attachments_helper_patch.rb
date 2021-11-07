@@ -38,6 +38,20 @@ module RedmineAttachmentCategories
             alias_method_chain :render_api_attachment_attributes, :attachment_category
           end
           
+          # ------------------------------------------------------------------------------#
+          # creates an attachment_category_select
+          # ------------------------------------------------------------------------------#
+          def attachment_category_select(name, choices, selected=nil, options={})
+            if blank_text = options.delete(:blank)
+              choices = [[blank_text.is_a?(Symbol) ? l(blank_text) : blank_text, '']] + choices
+            else
+              choices = [['', '']] + choices
+            end
+            select_tag(name,
+                       options_for_select(choices, selected),
+                       options).html_safe
+          end
+          
         end #base
         
       end #self
