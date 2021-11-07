@@ -1,5 +1,6 @@
 <%-
   _all_categories = AttachmentCategory.all.collect { |p| [p.name, p.id]} 
+  _disable_auto_completes = Setting['plugin_redmine_attachment_categories']['disable_auto_completes'] == "true"
   
   _attachment_tag  = @attachment.thumbnailable? ? thumbnail_tag( @attachment ) : attachment_category_tag( @attachment.attachment_category, :span )
   _category_select = attachment_category_select(
@@ -39,7 +40,9 @@ var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
   fileSpan.prepend('<%= _file_or_thumbnail %>');
   fileSpan.find('input.description').attr("id", '<%= "attachments_p#{j params[:attachment_id]}_description" %>');
   
-  observeAutocompleteField('<%= "attachments_p#{j params[:attachment_id]}_description" %>', '<%= "#{auto_complete_attachment_descriptions_path}" %>');
+  if (!<%= _disable_auto_completes %>) {
+    observeAutocompleteField('<%= "attachments_p#{j params[:attachment_id]}_description" %>', '<%= "#{auto_complete_attachment_descriptions_path}" %>');
+  }
   changeCategoryColor($('<%= "#attachments_#{j params[:attachment_id]}_attachment_category_id" %>'), '<%= "#attachments_#{params[:attachment_id]}" %>');
 
     

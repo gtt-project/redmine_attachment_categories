@@ -24,9 +24,17 @@
 </p>
 </fieldset>
 
-<fieldset><legend><%= l(:label_configure_attachment_archive_dir_field)%></legend>
+<fieldset><legend><%= l(:label_configure_additional_functionalities)%></legend>
   <p>
-    <label><%= l(:label_custom_field_name) %></label>
+    <label><%= l(:label_disable_auto_completes) %></label>
+    <%= check_box_tag 'settings[disable_auto_completes]', true, settings['disable_auto_completes'] %>
+  </p>
+  <p>
+    <label><%= l(:label_disable_attachment_archive) %></label>
+    <%= check_box_tag 'settings[disable_attachment_archive]', true, settings['disable_attachment_archive'] %>
+  </p>
+  <p>
+    <label><%= l(:label_configure_attachment_archive_dir_field) %></label>
     <%= text_field_tag 'settings[custom_field_name]', settings['custom_field_name'] %>
   </p>
 </fieldset>

@@ -38,7 +38,9 @@ Redmine::Plugin.register :redmine_attachment_categories do
 #-----------------------------------------------------------------------------------------
 # Plugin setting
 #-----------------------------------------------------------------------------------------
-  settings :default => {'attachment_category_style'     => 'attachment_category_default'
+  settings :default => {'attachment_category_style'     => 'attachment_category_default',
+                        'disable_auto_completes'        => false,
+                        'disable_attachment_archive'    => false
                         },
            :partial => 'settings/redmine_attachment_categories/plugin_settings'
            
