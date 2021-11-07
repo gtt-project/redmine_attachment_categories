@@ -1,5 +1,7 @@
 div.attachment_categories_column {
     text-align: center;
+    margin-right: 4px;
+    margin-bottom: 4px;
 }
 
 .attachment_category {
@@ -7,8 +9,11 @@ div.attachment_categories_column {
 }
 
 .attachments_fields input.description {
-    margin-left: 4px;
-    width: unset;
+    width: 250px;
+}
+
+span.add_attachment {
+    display: block;
 }
 
 .attachment_category_style_default {
@@ -36,4 +41,13 @@ div.thumbnails div {
 
 input.archive_attachments {
     margin-left: 2px;
+}
+
+@media screen and (max-width: 899px) {
+    div.attachment_categories_column>select {
+        width: unset;
+    }
+    .attachments_fields input.description {
+        margin-right: 16px;
+    }
 }
