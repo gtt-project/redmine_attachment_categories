@@ -33,3 +33,7 @@ div.attachment_categories_column {
 div.thumbnails div {
     text-align: center;
 }
+
+input.archive_attachments {
+    margin-left: 2px;
+}

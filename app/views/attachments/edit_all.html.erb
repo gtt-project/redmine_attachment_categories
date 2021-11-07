@@ -29,8 +29,8 @@
           <%= attachment_category_tag(attachment.attachment_category, :span) %>
         </div>
         <%- end %>
-        <div>
-        <%= attachment_category_select "attachments[#{attachment.id}][attachment_category_id]", attachment_categories, attachment.attachment_category_id, :onchange => "changeCategoryColor(this)" %>
+        <div class="attachment_categories_column">
+          <%= attachment_category_select "attachments[#{attachment.id}][attachment_category_id]", attachment_categories, attachment.attachment_category_id, :onchange => "changeCategoryColor(this)" %>
         </div>
         </div>
       </td>
@@ -44,7 +44,7 @@
   </table>
   </div>
   <p>
-    <%= submit_tag l(:button_save) %><%= submit_tag(l(:button_archive), :name => "archive" )%>
+    <%= submit_tag l(:button_save) %><%= submit_tag(l(:button_archive), :name => "archive", :class => "archive_attachments" )%>
     <%= link_to l(:button_cancel), back_url if back_url.present? %>
   </p>
 <% end %>
