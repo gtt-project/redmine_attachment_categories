@@ -26,7 +26,6 @@ module RedmineAttachmentCategories
         base.send(:include, InstanceMethods)
         
         base.class_eval do
-          unloadable
             
           alias_method   :update_all_params, :update_all_params_with_attachment_category_id
           

@@ -26,7 +26,6 @@ module RedmineAttachmentCategories
         base.send(:include, InstanceMethods)
         
         base.class_eval do
-          unloadable
           
         def save_attachments(attachments, author=User.current)
           if attachments.respond_to?(:to_unsafe_hash)
