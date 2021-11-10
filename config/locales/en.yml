@@ -26,7 +26,7 @@ en:
   label_configure_attachment_category_style:     "Choose tag style"
   label_setting_default_tag:                     "Standard"
   label_setting_other_tag:                       "Other style"
-  label_configure_additional_functionalities:    "Additonal functionalities"
+  label_configure_additional_functionalities:    "Additional functionalities"
   label_disable_auto_completes:                  "Disable Auto Completes"
   label_disable_attachment_archive:              "Disable Attachments Archive"
   label_configure_attachment_archive_dir_field:  "Custom Field Name with Archive Directory"
