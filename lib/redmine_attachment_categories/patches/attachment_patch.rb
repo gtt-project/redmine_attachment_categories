@@ -25,7 +25,6 @@ module RedmineAttachmentCategories
       def self.included(base)
 
         base.class_eval do
-          unloadable
           safe_attributes 'attachment_category_id'                    
           belongs_to      :attachment_category  
                     

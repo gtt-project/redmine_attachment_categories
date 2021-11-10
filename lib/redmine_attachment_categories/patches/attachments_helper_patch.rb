@@ -27,8 +27,6 @@ module RedmineAttachmentCategories
         base.extend(ClassMethods)
         base.send(:include, InstanceMethods)
         base.class_eval do
-        
-          unloadable
           
           if Rails::VERSION::MAJOR >= 5
           

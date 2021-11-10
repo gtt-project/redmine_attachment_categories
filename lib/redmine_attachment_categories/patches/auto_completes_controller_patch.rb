@@ -26,7 +26,6 @@ module RedmineAttachmentCategories
         base.send(:include, InstanceMethods)
         
         base.class_eval do
-          unloadable
           skip_before_action :find_project, :only => [:attachment_descriptions]
         end
       end
