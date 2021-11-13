@@ -107,7 +107,3 @@ module RedmineAttachmentCategories
     end
   end  
 end
-
-unless Attachment.included_modules.include?(RedmineAttachmentCategories::Patches::AttachmentPatch)
-    Attachment.send(:include, RedmineAttachmentCategories::Patches::AttachmentPatch)
-end

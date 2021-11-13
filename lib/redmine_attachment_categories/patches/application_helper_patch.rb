@@ -157,9 +157,3 @@ module RedmineAttachmentCategories
     end #module
   end #module
 end #module
-
-unless ApplicationHelper.included_modules.include?(RedmineAttachmentCategories::Patches::ApplicationHelperPatch)
-    ApplicationHelper.send(:include, RedmineAttachmentCategories::Patches::ApplicationHelperPatch)
-end
-
-

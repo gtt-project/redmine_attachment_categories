@@ -79,7 +79,3 @@ module RedmineAttachmentCategories
     end #module
   end #module
 end #module
-
-unless AttachmentsHelper.included_modules.include?(RedmineAttachmentCategories::Patches::AttachmentsHelperPatch)
-  AttachmentsHelper.send(:include, RedmineAttachmentCategories::Patches::AttachmentsHelperPatch)
-end
