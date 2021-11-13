@@ -85,7 +85,3 @@ module RedmineAttachmentCategories
     end #module
   end #module
 end #module
-
-unless Redmine::Acts::Attachable::InstanceMethods.included_modules.include?(RedmineAttachmentCategories::Patches::ActsAsAttachablePatch)
-  Redmine::Acts::Attachable::InstanceMethods.send(:include, RedmineAttachmentCategories::Patches::ActsAsAttachablePatch)
-end

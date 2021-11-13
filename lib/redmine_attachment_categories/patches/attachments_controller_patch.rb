@@ -45,10 +45,3 @@ module RedmineAttachmentCategories
     end #module
   end #module
 end #module
-
-unless AttachmentsController.included_modules.include?(RedmineAttachmentCategories::Patches::AttachmentsControllerPatch)
-    AttachmentsController.send(:include, RedmineAttachmentCategories::Patches::AttachmentsControllerPatch)
-end
-
-
-

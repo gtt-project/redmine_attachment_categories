@@ -24,25 +24,25 @@ Rails.configuration.to_prepare do
   #------------------------------------------------------------------------------------- #
   # patch redmine core plugin
   #------------------------------------------------------------------------------------- #
-  require 'redmine_attachment_categories/patches/acts_as_attachable_patch'
-  
+  Redmine::Acts::Attachable::InstanceMethods.send(:include, RedmineAttachmentCategories::Patches::ActsAsAttachablePatch)
+
   #------------------------------------------------------------------------------------- #
   # patch helpers and controllers 
   #------------------------------------------------------------------------------------- #
-  require 'redmine_attachment_categories/patches/application_helper_patch'  
-  require 'redmine_attachment_categories/patches/attachment_patch'
-  require 'redmine_attachment_categories/patches/attachments_controller_patch'
-  require 'redmine_attachment_categories/patches/attachments_helper_patch'
-  require 'redmine_attachment_categories/patches/auto_completes_controller_patch'
-   
-  #------------------------------------------------------------------------------------- #
-  # hooks 
-  #------------------------------------------------------------------------------------- #
-  require 'redmine_attachment_categories/hooks/layout_base_hook'
+  ApplicationHelper.send(:include, RedmineAttachmentCategories::Patches::ApplicationHelperPatch)
+  Attachment.send(:include, RedmineAttachmentCategories::Patches::AttachmentPatch)
+  AttachmentsController.send(:include, RedmineAttachmentCategories::Patches::AttachmentsControllerPatch)
+  AttachmentsHelper.send(:include, RedmineAttachmentCategories::Patches::AttachmentsHelperPatch)
+  AutoCompletesController.send(:include, RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)
 
-  #------------------------------------------------------------------------------------- #
-  # utilities 
-  #------------------------------------------------------------------------------------- #
-  require 'redmine_attachment_categories/lib/rac_file'
 end
 
+#------------------------------------------------------------------------------------- #
+# hooks 
+#------------------------------------------------------------------------------------- #
+require 'redmine_attachment_categories/hooks/layout_base_hook'
+
+#------------------------------------------------------------------------------------- #
+# utilities 
+#------------------------------------------------------------------------------------- #
+require 'redmine_attachment_categories/lib/rac_file'

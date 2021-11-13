@@ -55,7 +55,3 @@ module RedmineAttachmentCategories
     end #module
   end #module
 end #module
-
-unless AutoCompletesController.included_modules.include?(RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)
-    AutoCompletesController.send(:include, RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)
-end
