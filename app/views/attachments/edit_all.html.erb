@@ -50,7 +50,7 @@
   <p>
     <%= submit_tag l(:button_save) %>
     <% if !disable_attachment_archive %>
-      <%= submit_tag(l(:button_archive), :name => "archive", :class => "archive_attachments" )%>
+      <%= submit_tag(l(:button_archive_attachments), :name => "archive", :class => "archive_attachments" )%>
     <% end %>
     <%= link_to l(:button_cancel), back_url if back_url.present? %>
   </p>
