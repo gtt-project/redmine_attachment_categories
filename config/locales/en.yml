@@ -41,7 +41,7 @@ en:
   #------------------------------------------------------------------------------------- #
   # Labels: edit all dialogue 
   #------------------------------------------------------------------------------------- #
-  button_archive:                                "Archive Attachments"
+  button_archive_attachments:                    "Archive Attachments"
 
   #------------------------------------------------------------------------------------- #
   # Labels: attachments categories administration

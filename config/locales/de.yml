@@ -38,7 +38,7 @@ de:
   #------------------------------------------------------------------------------------- #
   # Labels: edit all dialogue 
   #------------------------------------------------------------------------------------- #
-  button_archive:                                "Anhänge ablegen"
+  button_archive_attachments:                    "Anhänge ablegen"
   
   #------------------------------------------------------------------------------------- #
   # Labels: attachments categories administration
