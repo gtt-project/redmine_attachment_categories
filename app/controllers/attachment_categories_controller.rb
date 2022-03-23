@@ -94,7 +94,6 @@ class AttachmentCategoriesController < ApplicationController
     rescue Exception => e
       flash[:error] = e.message
     end
-  rescue
     redirect_to attachment_categories_path
   end #def
   
