@@ -19,30 +19,20 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-Rails.configuration.to_prepare do
-  
-  #------------------------------------------------------------------------------------- #
-  # patch redmine core plugin
-  #------------------------------------------------------------------------------------- #
-  Redmine::Acts::Attachable::InstanceMethods.send(:include, RedmineAttachmentCategories::Patches::ActsAsAttachablePatch)
+module RedmineAttachmentCategories
+  def self.setup
+    #------------------------------------------------------------------------------------- #
+    # patch redmine core plugin
+    #------------------------------------------------------------------------------------- #
+    Redmine::Acts::Attachable::InstanceMethods.send(:include, RedmineAttachmentCategories::Patches::ActsAsAttachablePatch)
 
-  #------------------------------------------------------------------------------------- #
-  # patch helpers and controllers 
-  #------------------------------------------------------------------------------------- #
-  ApplicationHelper.send(:include, RedmineAttachmentCategories::Patches::ApplicationHelperPatch)
-  Attachment.send(:include, RedmineAttachmentCategories::Patches::AttachmentPatch)
-  AttachmentsController.send(:include, RedmineAttachmentCategories::Patches::AttachmentsControllerPatch)
-  AttachmentsHelper.send(:include, RedmineAttachmentCategories::Patches::AttachmentsHelperPatch)
-  AutoCompletesController.send(:include, RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)
-
+    #------------------------------------------------------------------------------------- #
+    # patch helpers and controllers 
+    #------------------------------------------------------------------------------------- #
+    ApplicationHelper.send(:include, RedmineAttachmentCategories::Patches::ApplicationHelperPatch)
+    Attachment.send(:include, RedmineAttachmentCategories::Patches::AttachmentPatch)
+    AttachmentsController.send(:include, RedmineAttachmentCategories::Patches::AttachmentsControllerPatch)
+    AttachmentsHelper.send(:include, RedmineAttachmentCategories::Patches::AttachmentsHelperPatch)
+    AutoCompletesController.send(:include, RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)
+  end
 end
-
-#------------------------------------------------------------------------------------- #
-# hooks 
-#------------------------------------------------------------------------------------- #
-require 'redmine_attachment_categories/hooks/layout_base_hook'
-
-#------------------------------------------------------------------------------------- #
-# utilities 
-#------------------------------------------------------------------------------------- #
-require 'redmine_attachment_categories/lib/rac_file'
