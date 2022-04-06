@@ -90,7 +90,7 @@ module RedmineAttachmentCategories
           # ------------------------------------------------------------------------------#
           def link_to_attachment_with_attachment_category(attachment, options={})
             text = options.delete(:text) || attachment.filename
-            if Redmine::VERSION.to_a[0] >= 4
+            if Redmine::VERSION::MAJOR >= 4
               if options.delete(:download)
                 route_method = :download_named_attachment_url
                 options[:filename] = attachment.filename
@@ -117,7 +117,7 @@ module RedmineAttachmentCategories
             end
             case object.class.name
             when 'Attachment'
-              if Redmine::VERSION.to_a[0] >= 4 && Redmine::VERSION.to_a[1] >= 2
+              if Redmine::VERSION.to_s >= '4.2'
                 if html
                   content_tag(
                     :span,
