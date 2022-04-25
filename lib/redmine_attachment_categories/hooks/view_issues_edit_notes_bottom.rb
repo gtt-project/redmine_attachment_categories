@@ -21,7 +21,7 @@
 
 module RedmineAttachmentCategories
   module Hooks
-    class ViewIssuesEditNotesBottomHook < Redmine::Hook::ViewListener
+    class ViewIssuesEditNotesBottom < Redmine::Hook::ViewListener
       render_on :view_issues_edit_notes_bottom, :partial => 'hooks/attachment_categories/category_changer'
     end
   end
