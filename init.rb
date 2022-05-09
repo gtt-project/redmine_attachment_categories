@@ -24,14 +24,14 @@
 #
 # 2.0.0 
 #        runing on redmine 4.x
-
-require 'redmine'
+# 3.0.0
+#        runing on redmine 5.x
 
 Redmine::Plugin.register :redmine_attachment_categories do
   name 'Attachment Categories'
   author 'Stephan Wenzel'
   description 'This is a plugin for Redmine for having a category tag on attachments'
-  version '2.0.0'
+  version '3.0.0'
   url 'https://github.com/HugoHasenbein/redmine_attachment_categories'
   author_url 'https://github.com/HugoHasenbein/redmine_attachment_categories'
   
@@ -59,7 +59,23 @@ end
 #---------------------------------------------------------------------------------------
 # Plugin Library
 #---------------------------------------------------------------------------------------
-require 'redmine_attachment_categories'
+if Rails.version > '6.0' && Rails.autoloaders.zeitwerk_enabled?
+  Rails.application.config.after_initialize do
+    RedmineAttachmentCategories.setup
+  end
+else
+  require 'redmine_attachment_categories'
+  Rails.configuration.to_prepare do
+    RedmineAttachmentCategories.setup
+  end
+end
 
+#---------------------------------------------------------------------------------------
+# hooks 
+#---------------------------------------------------------------------------------------
+require File.expand_path('../lib/redmine_attachment_categories/hooks/layout_base_hook', __FILE__)
 
-
+#---------------------------------------------------------------------------------------
+# utilities 
+#---------------------------------------------------------------------------------------
+require File.expand_path('../lib/redmine_attachment_categories/lib/rac_file', __FILE__)
