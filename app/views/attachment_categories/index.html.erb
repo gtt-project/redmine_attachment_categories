@@ -43,7 +43,7 @@
     <tr class="<%= cycle("odd", "even") %>">
     <td class="total"><%=l(:label_total)%></td>
     <td class="color"><div>&nbsp;</div></td>
-    <td class="allcount"><%= Attachment.count %></td>
+    <td class="allcount"><%= Attachment.where(:container_type => 'Issue').count %></td>
     <td class="buttons">&nbsp;</td>
     </tr>
     </tbody>

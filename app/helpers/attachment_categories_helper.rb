@@ -22,7 +22,7 @@
 module AttachmentCategoriesHelper
 
   def uncategorized_attachments_count
-    Attachment.count - Attachment.where(:attachment_category_id => AttachmentCategory.all.pluck(:id)).count
+    Attachment.where(:container_type => 'Issue').count - Attachment.where(:attachment_category_id => AttachmentCategory.all.pluck(:id)).count
   end
   
 end #module
