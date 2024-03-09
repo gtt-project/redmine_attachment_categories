@@ -3,7 +3,9 @@ var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
   fileSpan.hide();
   alert("<%= escape_javascript @attachment.errors.full_messages.join(', ') %>");
 <% else %>
-  <% if false %>
+  <% before_uri = URI.parse(request.referer) %>
+  <% before_path = Rails.application.routes.recognize_path(before_uri.path) %>
+  <% if before_path.blank? || before_path[:controller] != 'issues' %>
     fileSpan.find('input.token').val('<%= j @attachment.token %>');
     fileSpan.find('a.remove-upload')
       .attr({

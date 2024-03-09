@@ -20,7 +20,9 @@
         <span class="author"><%= attachment.author %>, <%= format_time(attachment.created_on) %></span>
       </td>
     </tr>
-    <% if true %>
+    <% before_uri = URI.parse(request.referer) %>
+    <% before_path = Rails.application.routes.recognize_path(before_uri.path) %>
+    <% if before_path.present? && before_path[:controller] == 'issues' %>
       <tr id="attachment-<%= attachment.id %>">
         <td style="vertical-align:top;">
           <%- if attachment.thumbnailable? %>
