@@ -1,51 +1,57 @@
-<%-
-  _all_categories = AttachmentCategory.all.collect { |p| [p.name, p.id]} 
-  _disable_auto_completes = Setting['plugin_redmine_attachment_categories']['disable_auto_completes'] == "true"
-  
-  _attachment_tag  = @attachment.thumbnailable? ? thumbnail_tag( @attachment ) : attachment_category_tag( @attachment.attachment_category, :span )
-  _category_select = attachment_category_select(
-    "attachments[#{j params[:attachment_id]}][attachment_category_id]",
-    _all_categories, @attachment.attachment_category_id,
-    :onchange => "changeCategoryColor(this, '#attachments_#{params[:attachment_id]}')"
-  )
-  
-  _file_or_thumbnail = j content_tag( 
-    :div, 
-    _attachment_tag + tag(:br) + _category_select,
-    {:class => "attachment_categories_column",
-     :style => "width:#{Setting.thumbnails_size.to_i}px;float:left;word-break:break-all;"
-    }
-  )
-  
-%>
 var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
-
 <% if @attachment.new_record? %>
   fileSpan.hide();
   alert("<%= escape_javascript @attachment.errors.full_messages.join(', ') %>");
-  
 <% else %>
+  <% before_uri = URI.parse(request.referer) %>
+  <% before_path = Rails.application.routes.recognize_path(before_uri.path) %>
+  <% if before_path.blank? || before_path[:controller] != 'issues' %>
+    fileSpan.find('input.token').val('<%= j @attachment.token %>');
+    fileSpan.find('a.remove-upload')
+      .attr({
+        "data-remote": true,
+        "data-method": 'delete',
+        href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
+      })
+      .off('click');
+  <% else %>
+    <%-
+      _all_categories = AttachmentCategory.all.collect { |p| [p.name, p.id]}
+      _disable_auto_completes = Setting['plugin_redmine_attachment_categories']['disable_auto_completes'] == "true"
 
-  fileSpan.find('input.token').val('<%= j @attachment.token %>');
-  fileSpan.find('a.remove-upload') 
-    .attr({
-      "data-remote": true,
-      "data-method": 'delete',
-      "style": "",
-      href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
-    })
-    .off('click');
-    
-  fileSpan.attr("style", "display:inline-block;" );
-  fileSpan.prepend('<%= _file_or_thumbnail %>');
-  fileSpan.find('input.description').attr("id", '<%= "attachments_p#{j params[:attachment_id]}_description" %>');
-  
-  if (!<%= _disable_auto_completes %>) {
-    observeAutocompleteField('<%= "attachments_p#{j params[:attachment_id]}_description" %>', '<%= "#{auto_complete_attachment_descriptions_path}" %>');
-  }
-  changeCategoryColor($('<%= "#attachments_#{j params[:attachment_id]}_attachment_category_id" %>'), '<%= "#attachments_#{params[:attachment_id]}" %>');
+      _attachment_tag  = @attachment.thumbnailable? ? thumbnail_tag( @attachment ) : attachment_category_tag( @attachment.attachment_category, :span )
+      _category_select = attachment_category_select(
+        "attachments[#{j params[:attachment_id]}][attachment_category_id]",
+        _all_categories, @attachment.attachment_category_id,
+        :onchange => "changeCategoryColor(this, '#attachments_#{params[:attachment_id]}')"
+      )
 
-    
+      _file_or_thumbnail = j content_tag(
+        :div,
+        _attachment_tag + tag(:br) + _category_select,
+        {:class => "attachment_categories_column",
+        :style => "width:#{Setting.thumbnails_size.to_i}px;float:left;word-break:break-all;"
+        }
+      )
+    %>
+
+    fileSpan.find('input.token').val('<%= j @attachment.token %>');
+    fileSpan.find('a.remove-upload')
+      .attr({
+        "data-remote": true,
+        "data-method": 'delete',
+        "style": "",
+        href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
+      })
+      .off('click');
+
+    fileSpan.attr("style", "display:inline-block;" );
+    fileSpan.prepend('<%= _file_or_thumbnail %>');
+    fileSpan.find('input.description').attr("id", '<%= "attachments_p#{j params[:attachment_id]}_description" %>');
+
+    if (!<%= _disable_auto_completes %>) {
+      observeAutocompleteField('<%= "attachments_p#{j params[:attachment_id]}_description" %>', '<%= "#{auto_complete_attachment_descriptions_path}" %>');
+    }
+    changeCategoryColor($('<%= "#attachments_#{j params[:attachment_id]}_attachment_category_id" %>'), '<%= "#attachments_#{params[:attachment_id]}" %>');
+  <% end %>
 <% end %>
-
-

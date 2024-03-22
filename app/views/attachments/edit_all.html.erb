@@ -20,30 +20,34 @@
         <span class="author"><%= attachment.author %>, <%= format_time(attachment.created_on) %></span>
       </td>
     </tr>
-    <tr id="attachment-<%= attachment.id %>">
-      <td style="vertical-align:top;">
-        <%- if attachment.thumbnailable? %>
-        <div class="attachment_categories_column" style="<%= "width:#{(Setting.thumbnails_size.to_i).to_i}px;" %>">
-          <%= thumbnail_tag( attachment ) %>
-        </div>
-        <%- else %>
-        <div class="attachment_categories_column" >
-          <%= attachment_category_tag(attachment.attachment_category, :span) %>
-        </div>
-        <%- end %>
-        <div class="attachment_categories_column">
-          <%= attachment_category_select "attachments[#{attachment.id}][attachment_category_id]", attachment_categories, attachment.attachment_category_id, :onchange => "changeCategoryColor(this)" %>
-        </div>
-        </div>
-      </td>
-      <td><%= text_field_tag "attachments[#{attachment.id}][filename]", attachment.filename, :size => 40 %></td>
-      <td>
-        <%= text_field_tag "attachments[#{attachment.id}][description]", attachment.description, :size => 40, :placeholder => l(:label_optional_description) %>
-        <% if !disable_auto_completes %>
-          <%= javascript_tag "observeAutocompleteField('attachments_#{attachment.id}_description', '#{auto_complete_attachment_descriptions_path(@container.project)}')".html_safe %>
-        <% end %>
-      </td>
-    </tr>
+    <% before_uri = URI.parse(request.referer) %>
+    <% before_path = Rails.application.routes.recognize_path(before_uri.path) %>
+    <% if before_path.present? && before_path[:controller] == 'issues' %>
+      <tr id="attachment-<%= attachment.id %>">
+        <td style="vertical-align:top;">
+          <%- if attachment.thumbnailable? %>
+          <div class="attachment_categories_column" style="<%= "width:#{(Setting.thumbnails_size.to_i).to_i}px;" %>">
+            <%= thumbnail_tag( attachment ) %>
+          </div>
+          <%- else %>
+          <div class="attachment_categories_column" >
+            <%= attachment_category_tag(attachment.attachment_category, :span) %>
+          </div>
+          <%- end %>
+          <div class="attachment_categories_column">
+            <%= attachment_category_select "attachments[#{attachment.id}][attachment_category_id]", attachment_categories, attachment.attachment_category_id, :onchange => "changeCategoryColor(this)" %>
+          </div>
+          </div>
+        </td>
+        <td><%= text_field_tag "attachments[#{attachment.id}][filename]", attachment.filename, :size => 40 %></td>
+        <td>
+          <%= text_field_tag "attachments[#{attachment.id}][description]", attachment.description, :size => 40, :placeholder => l(:label_optional_description) %>
+          <% if !disable_auto_completes %>
+            <%= javascript_tag "observeAutocompleteField('attachments_#{attachment.id}_description', '#{auto_complete_attachment_descriptions_path(@container.project)}')".html_safe %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
   </table>
   </div>
